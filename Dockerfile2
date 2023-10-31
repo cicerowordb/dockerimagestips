@@ -1,0 +1,15 @@
+# Exemplo 2 - FAZER
+# Fez mudanças e tentou apagar os arquivos na mesma camada/instrução
+# Resultado: Imagem de 118MB no lugar de uma imagem de 137MB
+# docker build -t debian:12-exemplo2 -f Dockerfile2 .
+# docker image ls
+
+FROM debian:12
+
+RUN apt-get update && \
+    apt-get install -y netcat-openbsd && \
+    apt-get clean && \
+    apt-get autoclean && \
+    rm -rf /var/lib/apt/lists/* && \
+    rm -rf /var/cache/apt/archives/*
+

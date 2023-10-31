@@ -1,0 +1,21 @@
+# Exemplo 3 - NÃO FAZER
+# Incluir informações que mudam muito no início do Dockerfile
+# time docker build -t debian:12-exemplo3 -f Dockerfile3 .
+# modifique uma variável que muda muito e rode novamente
+# a vantagem vai ser observada na segunda execução
+
+FROM debian:12
+
+# Informação que nunca muda
+RUN echo d35357deb0cbb03f451263775b80556486a8bcc831160f844a2a107c26aafafb > /root/build_hash1.txt
+
+# Informação que muda sempre
+RUN echo 9590e09d3664948e08160604ffdb454c2791296ee059668da7d271c173121a81 > /root/build_hash2.txt
+
+# Informação que muda pouco, só quando houver novas versões.
+RUN apt-get update && \
+    apt-get install -y netcat-openbsd && \
+    apt-get clean && \
+    apt-get autoclean && \
+    rm -rf /var/lib/apt/lists/* && \
+    rm -rf /var/cache/apt/archives/*

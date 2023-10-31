@@ -1,0 +1,23 @@
+# Exemplo 6 - NÃO FAZER
+# Incluir informações que mudam muito no fim do Dockerfile
+# Agora na forma de um arquivo
+# time docker build -t debian:12-exemplo6 -f Dockerfile6 .
+# modifique uma variável que muda muito e rode novamente
+# a vantagem vai ser observada na segunda execução
+
+FROM debian:12
+
+# Informação que nunca muda
+COPY ex05_mudapouco.txt /root/build_hash1.txt
+
+# Informação que muda pouco, só quando houver novas versões.
+RUN apt-get update && \
+    apt-get install -y netcat-openbsd && \
+    apt-get clean && \
+    apt-get autoclean && \
+    rm -rf /var/lib/apt/lists/* && \
+    rm -rf /var/cache/apt/archives/*
+
+# Informação que muda sempre
+COPY ex05_mudamuito.txt /root/build_hash2.txt
+

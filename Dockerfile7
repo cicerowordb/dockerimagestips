@@ -1,0 +1,20 @@
+# Exemplo 7 - NÃO FAZER
+# Copiar todo o conteúdo do diretório atual sem usar o .dockerignore
+# docker build -t debian:12-exemplo7-1 -f Dockerfile7 .
+# docker run --name ex7-1 -d debian:12-exemplo7-1
+# docker exec -it ex7-1 bash
+#     ls /opt/shell_app/
+#     exit
+# modifique o nome do arquivo .dockerignore e repita o teste
+# docker build -t debian:12-exemplo7-2 -f Dockerfile7 .
+# docker run --name ex7-2 -d debian:12-exemplo7-2
+# docker exec -it ex7-2 bash
+#     ls /opt/shell_app/
+#     exit
+
+FROM debian:12
+
+COPY ./* /opt/shell_app/
+
+CMD [ "/bin/bash", "/opt/shell_app/algum_script.sh"]
+

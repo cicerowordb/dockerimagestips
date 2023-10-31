@@ -1,0 +1,25 @@
+# Exemplo 10 - FAZER
+# Usar ENV para informações não sigilosas
+# Usar ARG para informações sigilosas usadas apenas durante o build
+# Usar volumes para infomações sigilosas em tempo de execução
+# docker build -t debian:12-exemplo10 --build-arg SECRET_INFO=123123 -f Dockerfile10 .
+# docker run --name ex10-1 -d debian:12-exemplo10
+# docker exec -it ex10-1 bash
+#     echo $NOT_SECRET_INFO
+#     echo $SECRET_INFO
+#     ls /opt
+#     exit
+# Observe que /opt não tem o diretório secrets
+# docker run --name ex10-2 -v ./info_sigilosa.secret:/opt/secrets.txt -d debian:12-exemplo10
+# docker exec -it ex10-2 bash
+#     ls /opt
+#     cat /opt/secrets.txt
+#     exit
+
+FROM debian:12
+
+ARG  SECRET_INFO
+ENV  NOT_SECRET_INFO=321321
+
+CMD [ "/bin/bash", "-c", "sleep 3600"]
+

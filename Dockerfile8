@@ -1,0 +1,14 @@
+# Exemplo 8 - FAZER
+# Usar uma imagem base com os procedimentos que mudam pouco
+# Especialmente útil quando usa a mesma imagem base para vários microserviços
+# ESTA É A IMAGEM BASE
+# docker build -t python:3.10-slim-base -f Dockerfile8 .
+
+FROM python:3.10-slim
+
+COPY requirements.txt /opt/python_app/
+
+RUN  cd /opt/python_app && \
+     python3 -m pip install -r requirements.txt -t . && \
+     rm -r ~/.cache/pip
+
