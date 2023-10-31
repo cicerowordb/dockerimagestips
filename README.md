@@ -2,6 +2,8 @@
 
 Lista de dicas simples para você produzir imagens otimizadas e seguras.
 
+[https://github.com/cicerowordb/dockerimagestips](https://github.com/cicerowordb/dockerimagestips)
+
 ## Dica1: Tratar tudo na mesma camada.
 
 Cada camada do de uma imagem Docker é como um sistema de arquivos diferente. E as camadas são independentes entre si. Por isso se você cria um arquivo em uma camada e apaga esse mesmo arquivo em outra ele continua presente na camada original. Se você usar a imagem como ela foi planejada o arquivo não vai estar acessível, mas vai continuar ocupando espaço, deixando seu container maior e isso não é bom. Containers maiores demoram mais a carregar, ocupam espaço desnecessário entre outras coisas desagradáveis que devemos evitar.
