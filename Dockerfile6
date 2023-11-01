@@ -1,4 +1,4 @@
-# Exemplo 6 - NÃO FAZER
+# Exemplo 6 - FAZER
 # Incluir informações que mudam muito no fim do Dockerfile
 # Agora na forma de um arquivo
 # time docker build -t debian:12-exemplo6 -f Dockerfile6 .
