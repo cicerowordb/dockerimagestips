@@ -10,7 +10,7 @@ FROM debian:12
 RUN echo d35357deb0cbb03f451263775b80556486a8bcc831160f844a2a107c26aafafb > /root/build_hash1.txt
 
 # Informação que muda sempre
-RUN echo 9590e09d3664948e08160604ffdb454c2791296ee059668da7d271c173121a81 > /root/build_hash2.txt
+RUN echo 9590e09d3664948e08160604ffdb454c2791296ee059668da7d271c173121a01 > /root/build_hash2.txt
 
 # Informação que muda pouco, só quando houver novas versões.
 RUN apt-get update && \
