@@ -1,0 +1,30 @@
+# Exemplo 11 - FAZER
+# Usar Multi-stage builds para reduzir o tamanho da imagem final
+# e aumentar a segurança removendo ferramentas de build.
+# docker build -t python:3.10-multistage -f Dockerfile11 .
+# docker run -d --name ex11 -p 5000:5000 python:3.10-multistage
+
+# Estágio 1: Builder
+FROM python:3.10-slim AS builder
+
+WORKDIR /app
+
+# Instala dependências
+COPY requirements.txt .
+RUN pip install --no-cache-dir --prefix=/install -r requirements.txt
+
+# Estágio 2: Final
+FROM python:3.10-slim
+
+WORKDIR /app
+
+# Copia apenas as dependências instaladas do estágio builder
+COPY --from=builder /install /usr/local
+# Copia o código da aplicação
+COPY main.py .
+
+# Define um usuário não-root por segurança (melhor prática adicional)
+RUN useradd -m myuser
+USER myuser
+
+CMD ["python3", "-m", "flask", "--app", "main", "run", "--host", "0.0.0.0", "--port", "5000"]
